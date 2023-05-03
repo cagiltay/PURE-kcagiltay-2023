@@ -14,6 +14,8 @@
 
  Build platform must be set to UWP. ARM64 architecture must be chosen.
  
+ This project utilizes URP in order to render the bloom effects on the hololens. Please make sure your project is set up with URP
+ 
  
  ## How to use the program
  As the program is not yet finished, there is no interaction to be listed here. When the project has matured, it is planned to have a grabbable and draggable point that can be placed at a desired point. This point will have child nodes which can have bloom activated for them by a set of parameters. Details will be listed here at a further date.
