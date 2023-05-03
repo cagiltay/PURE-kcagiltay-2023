@@ -157,6 +157,7 @@ Library: D:\unity\projects\deploy-noURP\Temp\StagingArea\Plugins\ARM\lib_burst_g
 --compilation-defines=TIMELINE_FRAMEACCURATE
 --compilation-defines=MSFT_OPENXR_1_4_0_OR_NEWER
 --compilation-defines=UNITY_OPENXR
+--compilation-defines=ARSUBSYSTEMS_ENABLED
 --compilation-defines=SPATIALTRACKING_ENABLED
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\unity\projects\deploy-noURP\Temp\Burst
