@@ -46,7 +46,7 @@ public class LightController : MonoBehaviour{
             SleepDuration = 1;//SleepDuration = Random.Range(3, 6);
             LEDNumber = Random.Range(0, 5);
             isVirtual = (Random.value > 0.5f);
-            ResetDuration = Random.Range(3, 6);
+            ResetDuration = Random.Range(4, 11);
 
             Debug.Log("Lighting LED#" + LEDNumber + " isVirtual: " + isVirtual +
                 "\nFor " + SleepDuration + " seconds, sleeping for " + ResetDuration + " seconds");
