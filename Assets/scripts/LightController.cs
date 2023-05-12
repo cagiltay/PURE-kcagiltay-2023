@@ -2,21 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if WINDOWS_UWP
+using Windows.Storage;
+using Windows.System;
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
+#endif
+
+
 public class LightController : MonoBehaviour{
     [SerializeField] Material Blooming, nonBlooming;
     [SerializeField] GameObject Light1, Light2, Light3, Light4, Light5;
 
-    List<GameObject> SceneLights = new List<GameObject>();
-    float timer = 0;
-    bool isVirtual, MaterialOff = false;
-    int SleepDuration, LEDNumber, ResetDuration;
+#if WINDOWS_UWP
+    Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+    Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+#endif
 
-	/*Instead of having 5 different materials for the 5 lights, have 2 materials, 1 emissive and 1 non-emissive.
+    List<GameObject> SceneLights = new List<GameObject>();
+    //CSVLogger myLogger = new CSVLogger();
+    float timer = 0;
+    bool isVirtual, MaterialOff = false, firstSave = true;
+    int SleepDuration, LEDNumber, ResetDuration;
+    string saveInformation;
+    private static string fileName = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ".txt";
+
+    /*Instead of having 5 different materials for the 5 lights, have 2 materials, 1 emissive and 1 non-emissive.
      Change between these materials as needed. This should be faster and more efficient 
     (and I can't fucking find the emission toggle so fuck it this works)
      */
 
-	private void Start(){
+    private void Start(){
         SceneLights.Add(Light1);
         SceneLights.Add(Light2);
         SceneLights.Add(Light3);
@@ -24,7 +40,21 @@ public class LightController : MonoBehaviour{
         SceneLights.Add(Light5);
     }
 
-	void LightUpVirtualMaterial(GameObject Light, bool TurnOn) {
+#if WINDOWS_UWP
+    async void WriteData(string DataToWrite){
+        if (firstSave){
+            StorageFile sampleFile = await localFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            await FileIO.AppendTextAsync(sampleFile, DataToWrite + "\r\n");
+            firstSave = false;
+        }
+		else{
+			StorageFile sampleFile = await localFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+			await FileIO.AppendTextAsync(sampleFile, DataToWrite + "\r\n");
+		}
+    }
+#endif
+
+    void LightUpVirtualMaterial(GameObject Light, bool TurnOn) {
 		if (TurnOn) {
             Light.GetComponent<Renderer>().material = Blooming;
             return;
@@ -44,12 +74,17 @@ public class LightController : MonoBehaviour{
 
 		if (timer == 0) {//we haven't started yet, initialize the scene
             SleepDuration = 1;//SleepDuration = Random.Range(3, 6);
-            LEDNumber = Random.Range(0, 5);
-            isVirtual = (Random.value > 0.5f);
-            ResetDuration = Random.Range(4, 11);
+            LEDNumber = UnityEngine.Random.Range(0, 5);
+            isVirtual = (UnityEngine.Random.value > 0.5f);
+            ResetDuration = UnityEngine.Random.Range(4, 11);
 
             Debug.Log("Lighting LED#" + LEDNumber + " isVirtual: " + isVirtual +
                 "\nFor " + SleepDuration + " seconds, sleeping for " + ResetDuration + " seconds");
+#if WINDOWS_UWP
+            saveInformation = System.DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ", " + LEDNumber;
+            WriteData(saveInformation);
+#endif
+
 
             if (isVirtual) LightUpVirtualMaterial(SceneLights[LEDNumber], true);
 			else {//------------------------------------------------TO DO------------------------------------------------
