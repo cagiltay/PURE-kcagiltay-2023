@@ -662,6 +662,7 @@ PlayerSettings:
   platformCapabilities:
     WindowsStoreApps:
       GazeInput: True
+      MusicLibrary: True
       SpatialPerception: True
       PicturesLibrary: True
       InternetClient: True

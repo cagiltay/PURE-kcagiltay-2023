@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,10 +39,16 @@ public class LightController : MonoBehaviour{
         SceneLights.Add(Light3);
         SceneLights.Add(Light4);
         SceneLights.Add(Light5);
+
+#if WINDOWS_UWP 
+        WriteData("year-month-day_hour-minute-second-ms , LED_number , isVirtual");
+#endif
     }
 
 #if WINDOWS_UWP
+//following code is acquired from here: forums.hololens.com/discussion/3290/save-a-string-to-a-text-or-cvs-file-on-hololens
     async void WriteData(string DataToWrite){
+    // text is saved to: "User Files\LocalAppData[APP name]\LocalState\[file name]
         if (firstSave){
             StorageFile sampleFile = await localFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             await FileIO.AppendTextAsync(sampleFile, DataToWrite + "\r\n");
@@ -62,17 +69,15 @@ public class LightController : MonoBehaviour{
         Light.GetComponent<Renderer>().material = nonBlooming;
     }
 
-	// Update is called once per frame
 	void Update(){
-		//generate random number -> determines which LED [1-5]
-		//generate random number -> determines if physical or virtual [0-1]
-		//generate random number -> determines how long it will be awake [3-5] seconds
-        //generate random number -> determines how long reset period will last [3-5] seconds
+        /*generate random number -> determines which LED [1-5]
+                                 -> determines if physical or virtual [0-1]
+                                 -> determines how long it will be awake [1] seconds
+                                 -> determines how long reset period will last [4-10] seconds
+        this process will repeat until program termination*/
 
-		//this process will repeat until program termination
 
-
-		if (timer == 0) {//we haven't started yet, initialize the scene
+        if (timer == 0) {//we haven't started yet, initialize the scene
             SleepDuration = 1;//SleepDuration = Random.Range(3, 6);
             LEDNumber = UnityEngine.Random.Range(0, 5);
             isVirtual = (UnityEngine.Random.value > 0.5f);
@@ -81,7 +86,7 @@ public class LightController : MonoBehaviour{
             Debug.Log("Lighting LED#" + LEDNumber + " isVirtual: " + isVirtual +
                 "\nFor " + SleepDuration + " seconds, sleeping for " + ResetDuration + " seconds");
 #if WINDOWS_UWP
-            saveInformation = System.DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ", " + LEDNumber;
+            saveInformation = System.DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ", " + LEDNumber + ", " + isVirtual;
             WriteData(saveInformation);
 #endif
 

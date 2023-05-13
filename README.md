@@ -32,3 +32,5 @@ When the scene is set, go back to where you were at the start of the program, th
 * The program ranomly determines to either light a physical light or a virtual light
 * the random LED lights up for 1 second
 * when the LED turns off, the program waits for 3-5 seconds, and then starts over again.
+
+under `User Files\LocalAppData[APP name]\LocalState\[file name]`, the program will create a log of all actions taken so far.
