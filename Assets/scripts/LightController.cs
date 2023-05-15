@@ -18,18 +18,20 @@ public class LightController : MonoBehaviour{
 #if WINDOWS_UWP
     Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
     Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+    bool firstSave = true;
 #endif
 
     List<GameObject> SceneLights = new List<GameObject>();
     //CSVLogger myLogger = new CSVLogger();
     float timer = 0;
-    bool isVirtual, MaterialOff = false, firstSave = true;
+    bool isVirtual, MaterialOff = false;
     int SleepDuration, LEDNumber, ResetDuration;
     string saveInformation;
     private static string fileName = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ".txt";
 
-    /*Instead of having 5 different materials for the 5 lights, have 2 materials, 1 emissive and 1 non-emissive.
-     Change between these materials as needed. This should be faster and more efficient 
+    /*Instead of having 5 different materials for the 5 lights, have 2 materials: emissive and non-emissive
+     Change between them as needed. This should be faster and more efficient
     (and I can't fucking find the emission toggle so fuck it this works)
      */
 
