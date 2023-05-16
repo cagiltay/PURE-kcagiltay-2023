@@ -22,7 +22,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging
                 // SessionType
                 "SessionType",
                 // Timestamp
-                "dt in ms",
+                "yyyy-MM-dd_HH-mm-ss-fff",
                 // Cam / Head tracking
                 "HeadOrigin.x",
                 "HeadOrigin.y",

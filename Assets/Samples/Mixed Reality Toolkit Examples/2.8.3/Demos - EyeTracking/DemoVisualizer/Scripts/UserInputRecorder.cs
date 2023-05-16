@@ -57,7 +57,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos.EyeTracking.Logging
                 // SessionType
                 sessionDescr,
                 // Timestamp
-                (DateTime.UtcNow - TimerStart).TotalMilliseconds
+                //(DateTime.UtcNow - TimerStart).TotalMilliseconds
+                System.DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fff")
             };
 
             return data;
