@@ -15,10 +15,11 @@ public class CubeProperties {
 }
 
 public class MainTaskController : MonoBehaviour{
-    [SerializeField] GameObject CubesParent, MovementLocParent;
+    [SerializeField] GameObject CubesParent, MovementLocParent, PassedObject;
     [SerializeField] [Range(0.0f, 1.0f)] float Velocity;
 
     List<CubeProperties> CubesStructList = new List<CubeProperties>();
+    CubeProperties PassedBall;
     Transform[] CubeTargets;
     List<int> UsedTargetIndex = new List<int>();
     int randomIndex;
@@ -41,6 +42,7 @@ public class MainTaskController : MonoBehaviour{
         }
 
         CubeTargets = MovementLocParent.transform.GetComponentsInChildren<Transform>();//also gets parent
+        PassedBall = new CubeProperties(PassedObject.transform);
     }
 
     void Update(){
@@ -49,7 +51,8 @@ public class MainTaskController : MonoBehaviour{
             //select new unused target if necessary
             if (cube.isReached) {
                 do {
-                    randomIndex = UnityEngine.Random.Range(1, CubeTargets.Length);
+                    //CubeTargets[0] == parent at (0,0,1)
+                    randomIndex = UnityEngine.Random.Range(2, CubeTargets.Length);
                 } while (UsedTargetIndex.Contains(randomIndex));
                 UsedTargetIndex.Add(randomIndex);
 
@@ -66,5 +69,24 @@ public class MainTaskController : MonoBehaviour{
                 UsedTargetIndex.Remove(cube.TargetIndex);
             }
         }
+
+		#region Same as above but scuffed for the ball
+		//move red ball (PassedObject) towards one of the cubes
+		//red ball must move towards a cube until it reaches it. When it reaches cube, it picks a new cube
+		//pick a cube for the ball if needed
+		if (PassedBall.isReached) {
+            do {
+                randomIndex = UnityEngine.Random.Range(0, CubesStructList.Count);
+            } while (PassedBall.TargetIndex == randomIndex);
+
+            PassedBall.TargetIndex = randomIndex;
+            PassedBall.isReached = false;
+        }
+        //move currently selected object to target (10% faster than the cubes)
+        PassedBall.CubeTransform.position = Vector3.MoveTowards(PassedBall.CubeTransform.position, CubesStructList[PassedBall.TargetIndex].CubeTransform.position, Velocity * 1.1f * Time.deltaTime);
+        //if target is reached, mark the cube and clean up the target
+        if (Vector3.Distance(PassedBall.CubeTransform.position, CubesStructList[PassedBall.TargetIndex].CubeTransform.position) < 0.02)
+            PassedBall.isReached = true;
+        #endregion
     }
 }

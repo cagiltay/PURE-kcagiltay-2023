@@ -34,3 +34,6 @@ When the scene is set, go back to where you were at the start of the program, th
 * when the LED turns off, the program waits for 3-5 seconds, and then starts over again.
 
 under `User Files\LocalAppData[APP name]\LocalState\[file name]`, the program will create a log of all actions taken so far.
+under `User Folders\Music\MRTK_ET_Demo\tester\[timestamped file]_test\test`, the program will create a log of eye-tracking data collected so far.
+
+When the scene is locked in, eye-tracking data will start being collected. To save the data to a file, you must press the button again.
