@@ -2,10 +2,6 @@
  research project for hololens 2. Supervised by Kürşat Çağıltay for an undergraduate research project in Sabanci University.
  
  The current iteration of the project is a replication study of the following paper: [Impact of Task on Attentional Tunneling in Handheld Augmented Reality](https://dl.acm.org/doi/abs/10.1145/3411764.3445580) by Brandon V. Syiem, Ryan M. Kelly, Jorge Goncalves, Eduardo Velloso, Tilman Dingler 
- 
- Further description to be added at a later date.
-
-
 
 ## Setup
  The unity project must have MRTK set up. The installation wizard can be found [here](https://learn.microsoft.com/en-us/windows/mixed-reality/develop/unity/welcome-to-mr-feature-tool).
@@ -37,3 +33,10 @@ under `User Files\LocalAppData[APP name]\LocalState\[file name]`, the program wi
 under `User Folders\Music\MRTK_ET_Demo\tester\[timestamped file]_test\test`, the program will create a log of eye-tracking data collected so far.
 
 When the scene is locked in, eye-tracking data will start being collected. To save the data to a file, you must press the button again.
+
+# Contact Infromation
+* Supervisor: Kürşat Çağıltay (kursat.cagiltay@sabanciuniv.edu)
+* Kutluhan Aygüzel (kutluhan@sabanciuniv.edu)
+* İlayda Efsane Algın (aefsane@sabanciuniv.edu)
+* Bilgehan Çağıltay (bcagiltay@sabanciuniv.edu)
+* Bilge Kaan Yıldırım (bilge.yildirim@sabanciuniv.edu)
