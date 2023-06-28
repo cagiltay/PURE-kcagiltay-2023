@@ -35,8 +35,8 @@ under `User Folders\Music\MRTK_ET_Demo\tester\[timestamped file]_test\test`, the
 When the scene is locked in, eye-tracking data will start being collected. To save the data to a file, you must press the button again.
 
 # Contact Infromation
-* Supervisor: Kürşat Çağıltay (kursat.cagiltay@sabanciuniv.edu)
+* Supervisor: [Kürşat Çağıltay](github.com/cagiltay) (kursat.cagiltay@sabanciuniv.edu)
 * Kutluhan Aygüzel (kutluhan@sabanciuniv.edu)
 * İlayda Efsane Algın (aefsane@sabanciuniv.edu)
-* Bilgehan Çağıltay (bcagiltay@sabanciuniv.edu)
+* [Bilgehan Çağıltay](github.com/DivinorWieldor) (bcagiltay@sabanciuniv.edu)
 * Bilge Kaan Yıldırım (bilge.yildirim@sabanciuniv.edu)
