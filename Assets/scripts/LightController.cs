@@ -12,9 +12,6 @@ using Windows.Storage.Streams;
 using Windows.Devices.Bluetooth.Rfcomm;
 using Windows.Networking.Sockets;
 using Windows.Devices.Bluetooth;
-
-Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService _service;
-Windows.Networking.Sockets.StreamSocket _socket;
 #endif
 
 public class LightController : MonoBehaviour{
@@ -23,6 +20,9 @@ public class LightController : MonoBehaviour{
 
 
 #if WINDOWS_UWP
+    Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService _service;
+    Windows.Networking.Sockets.StreamSocket _socket;
+
     Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
     Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
