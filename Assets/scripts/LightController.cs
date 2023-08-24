@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -114,6 +115,8 @@ async void Initialize(){
 }
 
 async void DataSender(int LEDNumber) {
+    Debug.Log(LEDNumber + " sending");
+
     string strOfLED = LEDNumber.ToString();
     var dataWriter = new DataWriter(_socket.OutputStream);
 
@@ -121,7 +124,9 @@ async void DataSender(int LEDNumber) {
     await dataWriter.StoreAsync();
     await dataWriter.FlushAsync();
 
-    dataWriter.Close();
+    dataWriter.Dispose();
+
+    Debug.Log(LEDNumber + " has been sent");
 }
 #endif
 
